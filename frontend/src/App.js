@@ -1,7 +1,8 @@
 import './App.css';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
+        const [walletAddress, setWalletAddress] = useState(null);
         const checkIfWalletIsConnected = async() => {
             try {
                 const { solana } = window;
@@ -12,6 +13,7 @@ const App = () => {
                             onlyIfTrusted: true
                         });
                         console.log("Connected with public key: " + response.publicKey.toString());
+                        setWalletAddress(response.publicKey.toString());
                     }
                 } else {
                     alert("Solana obj not found, get a Phantom wallet")
