@@ -65,6 +65,15 @@ pub struct Withdraw<'info> {
     pub user: Signer<'info>,
 }
 
+#[derive(Accounts)]
+pub struct Donate<'info> {
+    #[account(mut)]
+    pub campaign: Account<'info, Campaign>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+    pub system_program: Program<'info, System>
+}
+
 #[account]
 pub struct Campaign{
     pub admin: Pubkey,
