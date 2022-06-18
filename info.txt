@@ -1,0 +1,2 @@
+Devnet deployed address: B3kNNQCvmKywbcsHT6z6tNnTD49pijeCupBPKVvUm8rc
+https://explorer.solana.com/address/B3kNNQCvmKywbcsHT6z6tNnTD49pijeCupBPKVvUm8rc?cluster=devnet
