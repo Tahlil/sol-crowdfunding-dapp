@@ -8,10 +8,10 @@ pub mod solcrowdfunding {
 
     pub fn cerate(ctx: Context<Create>, name: String, description: String) -> Result<()> {
         let campaign  = &mut ctx.accounts.campaign;
-        campaign.name = nanme;
+        campaign.name = name;
         campaign.description = description;
         campaign.amount_donated = 0;
-        campaign.amdmin = *ctx.accounts.user.key;
+        campaign.admin = *ctx.accounts.user.key;
         Ok(())
     }
 }
@@ -19,9 +19,16 @@ pub mod solcrowdfunding {
 #[derive(Accounts)]
 pub struct Create<'info> {
     #[account(init, payer=user, space=9000, seeds=[b"CAMPAIGN_DEMO".as_ref(), user.key().as_ref()], bump)]
-    pub campaign: Account<'inf, Campaign>,
+    pub campaign: Account<'info, Campaign>,
     #[account(mut)]
     pub user: Signer<'info>,
     pub system_program: Program<'info, System>
 }
 
+#[account]
+pub struct Campaign{
+    pub admin: Pubkey,
+    pub name: String,
+    pub description: String,
+    pub amount_donated: u64,
+}
