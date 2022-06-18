@@ -39,6 +39,14 @@ pub struct Create<'info> {
     pub system_program: Program<'info, System>
 }
 
+#[derive(Accounts)]
+pub struct Withdraw<'info> {
+    #[account(mut)]
+    pub campaign: Account<'info, Campaign>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+}
+
 #[account]
 pub struct Campaign{
     pub admin: Pubkey,
