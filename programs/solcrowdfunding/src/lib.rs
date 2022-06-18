@@ -31,7 +31,7 @@ pub mod solcrowdfunding {
     }
 
     pub fn donate(ctx: Context<Withdraw>, amount: u64) -> ProgramResult {
-        let instructions = anchor_lang::solana_program::system_program::transfer(
+        let instructions = anchor_lang::solana_program::system_instruction::transfer(
             &ctx.accounts.user.key(),
             &ctx.accounts.campaign.key(),
             amount
