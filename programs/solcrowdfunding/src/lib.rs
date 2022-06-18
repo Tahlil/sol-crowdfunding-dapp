@@ -28,6 +28,7 @@ pub mod solcrowdfunding {
         }
         **campaign.to_account_info().try_borrow_mut_lamports()? -= amount;
         **user.to_account_info().try_borrow_mut_lamports()? += amount;
+        Ok(())
     }
 
     pub fn donate(ctx: Context<Withdraw>, amount: u64) -> ProgramResult {
