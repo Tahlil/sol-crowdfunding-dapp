@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::entrypoint::ProgramResult;
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 
@@ -6,7 +7,7 @@ declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 pub mod solcrowdfunding {
     use super::*;
 
-    pub fn cerate(ctx: Context<Create>, name: String, description: String) -> Result<()> {
+    pub fn cerate(ctx: Context<Create>, name: String, description: String) -> ProgramResult {
         let campaign  = &mut ctx.accounts.campaign;
         campaign.name = name;
         campaign.description = description;
@@ -15,7 +16,7 @@ pub mod solcrowdfunding {
         Ok(())
     }
 
-    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> Result<()> {
+    pub fn withdraw(ctx: Context<Withdraw>, amount: u64) -> ProgramResult {
         let campaign = &mut ctx.accounts.campaign;
         let user = &mut ctx.accounts.user;
         if campaign.admin != *user.key {
