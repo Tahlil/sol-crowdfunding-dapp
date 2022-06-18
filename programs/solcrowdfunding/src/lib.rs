@@ -29,6 +29,23 @@ pub mod solcrowdfunding {
         **campaign.to_account_info().try_borrow_mut_lamports()? -= amount;
         **user.to_account_info().try_borrow_mut_lamports()? += amount;
     }
+
+    pub fn donate(ctx: Context<Withdraw>, amount: u64) -> ProgramResult {
+        let instructions = anchor_lang::solana_program::system_program::transfer(
+            &ctx.accounts.user.key(),
+            &ctx.accounts.campaign.key(),
+            amount
+        );
+        anchor_lang::solana_program::program::invoke(
+            &instructions,
+            &[
+                ctx.accounts.user.to_account_info(),
+                ctx.accounts.campaign.to_account_info()
+            ]
+        );
+        (&mut ctx.accounts.campaign).amount_donated += amount;
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
