@@ -1,4 +1,5 @@
 import './App.css';
+import { useEffect } from "react";
 
 const App = () => {
     const checkIfWalletIsConnected = () => {
@@ -14,7 +15,14 @@ const App = () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+    useEffect(() => {
+        const onload = async() => {
+            await checkIfWalletIsConnected();
+        }
+        window.addEventListener('load', onload)
+        return () => window.removeEventListener('load', onload)
+    }, [])
 }
 
 export default App;
