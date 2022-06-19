@@ -2,7 +2,9 @@ import './App.css';
 import idl from './idl.json';
 import {Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
 import {Program, AnchorProvider, web3, utils, BN} from '@project-serum/anchor'
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import {Buffer} from 'buffer';
+window.Buffer = Buffer;
 
 const programID = new PublicKey(idl.metadata.address);
 const network = clusterApiUrl('devnet');
@@ -57,7 +59,7 @@ const App = () => {
                 ],
                 program.programId
                 );
-                await program.rpc.create("campaign name", "campaign description", {
+                await program.rpc.cerate("campaign name", "campaign description", {
                     accounts: {
                         campaign,
                         user: provider.wallet.publicKey,
@@ -66,7 +68,7 @@ const App = () => {
                 })
                 console.log("Create a new campaign with address: " + campaign.toString());
             } catch (error) {
-                console.error("Error creting campaign: " + error);
+                console.error("Error creating campaign: " + error);
             }
         } 
         const renderNotConnectedContainer = () => ( < button onClick = { connectWallet } > Connect to Wallet </button>)
