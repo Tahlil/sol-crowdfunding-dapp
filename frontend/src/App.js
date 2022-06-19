@@ -54,12 +54,12 @@ const App = () => {
                 const provider = getProvider();
                 const program = new Program(idl, programID, provider);
                 const [campaign] = await PublicKey.findProgramAddress([
-                    utils.bytes.utf8.encode("CAMPAIGN_DEMO"),
+                    utils.bytes.utf8.encode("CAMPAIGN_DAPP"),
                     provider.wallet.publicKey.toBuffer(),
                 ],
                 program.programId
                 );
-                await program.rpc.cerate("campaign name", "campaign description", {
+                await program.rpc.create("campaign name", "campaign description", {
                     accounts: {
                         campaign,
                         user: provider.wallet.publicKey,

@@ -7,7 +7,7 @@ declare_id!("B3kNNQCvmKywbcsHT6z6tNnTD49pijeCupBPKVvUm8rc");
 pub mod solcrowdfunding {
     use super::*;
 
-    pub fn cerate(ctx: Context<Create>, name: String, description: String) -> ProgramResult {
+    pub fn create(ctx: Context<Create>, name: String, description: String) -> ProgramResult {
         let campaign  = &mut ctx.accounts.campaign;
         campaign.name = name;
         campaign.description = description;
@@ -51,7 +51,7 @@ pub mod solcrowdfunding {
 
 #[derive(Accounts)]
 pub struct Create<'info> {
-    #[account(init, payer=user, space=9000, seeds=[b"CAMPAIGN_DEMO".as_ref(), user.key().as_ref()], bump)]
+    #[account(init, payer=user, space=9000, seeds=[b"CAMPAIGN_DAPP".as_ref(), user.key().as_ref()], bump)]
     pub campaign: Account<'info, Campaign>,
     #[account(mut)]
     pub user: Signer<'info>,
