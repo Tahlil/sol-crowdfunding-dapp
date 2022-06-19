@@ -16,6 +16,7 @@ const App = () => {
             const connection = new Connection(network, opts.preFlightComitment)
             const provider = new AnchorProvider(connection, window.solana, opts.preFlightComitment)
         }
+        const { SystemProgram } = web3;
         const checkIfWalletIsConnected = async() => {
             try {
                 const { solana } = window;
@@ -45,6 +46,28 @@ const App = () => {
             }
         }
 
+        const createCampaign = async () => {
+            try {
+                const provider = getProvider();
+                const program = new Program(idl, programID, provider);
+                const [campaign] = await PublicKey.findProgramAddress([
+                    utils.bytes.utf8.encode("CAMPAIGN_DEMO"),
+                    provider.wallet.publicKey.toBuffer(),
+                ],
+                program.programId
+                );
+                await program.rpc.create("campaign name", "campaign description", {
+                    accounts: {
+                        campaign,
+                        user: provider.wallet.publicKey,
+                        systemProgram: SystemProgram.programId
+                    }
+                })
+                console.log("Create a new campaign with address: " + campaign.toString());
+            } catch (error) {
+                console.error("Error creting campaign: " + error);
+            }
+        } 
         const renderNotConnectedContainer = () => ( < button onClick = { connectWallet } > Connect to Wallet </button>)
             useEffect(() => {
                 const onload = async() => {
