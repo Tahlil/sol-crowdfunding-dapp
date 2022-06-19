@@ -2,7 +2,7 @@ import './App.css';
 import idl from './idl.json';
 import {Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
 import {Program, AnchorProvider, web3, utils, BN} from '@project-serum/anchor'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Buffer} from 'buffer';
 import { publicKey } from '@project-serum/anchor/dist/cjs/utils';
 window.Buffer = Buffer;
@@ -88,7 +88,7 @@ const App = () => {
             }
         } 
 
-        const donate = async pubkey => {
+        const donate = async (pubkey) => {
             try {
                 const provider = getProvider();
                 const program = new Program(idl, programID, provider);
@@ -121,6 +121,8 @@ const App = () => {
                </p>
                <p>{campaign.name}</p>
                <p>{campaign.description}</p>
+               <button onClick = {() => {donate(campaign.pubkey)} } > Click to Donate </button>
+               
            </div>
        ))}
         </div>
