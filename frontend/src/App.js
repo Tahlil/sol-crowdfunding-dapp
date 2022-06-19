@@ -88,6 +88,22 @@ const App = () => {
             }
         } 
 
+        const withdraw  = async (publicKey) => {
+            try {
+                const provider = getProvider();
+                const program = new Program(idl, programID, provider);
+                await program.rpc.withdraw(new BN(0.2 * web3.LAMPORTS_PER_SOL), {
+                    accounts: {
+                        campaign: publicKey,
+                        user: provider.wallet.publicKey,
+                    }
+                });
+                console.log("Witdraw 0.2 sol");
+            } catch (error) {
+                console.error("Error withdrawing: " + error);
+            }
+        }
+
         const donate = async (pubkey) => {
             try {
                 const provider = getProvider();
