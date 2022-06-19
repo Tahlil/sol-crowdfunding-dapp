@@ -138,6 +138,7 @@ const App = () => {
                <p>{campaign.name}</p>
                <p>{campaign.description}</p>
                <button onClick = {() => {donate(campaign.pubkey)} } > Click to Donate </button>
+               <button onClick = {() => {withdraw(campaign.pubkey)} } > Click to Withdraw </button>
                
            </div>
        ))}
