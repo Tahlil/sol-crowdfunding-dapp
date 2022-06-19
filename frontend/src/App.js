@@ -14,6 +14,7 @@ const opts = {
 
 const App = () => {
         const [walletAddress, setWalletAddress] = useState(null);
+        const [campaigns, setCampaigns] = useState([]);
         const getProvider = () => {
             const connection = new Connection(network, opts.preFlightComitment)
             const provider = new AnchorProvider(connection, window.solana, opts.preFlightComitment)
@@ -47,6 +48,20 @@ const App = () => {
                 console.log("Connected with public key: " + response.publicKey.toString());
                 setWalletAddress(response.publicKey.toString());
             }
+        }
+
+        const getCampaigns = async () => {
+            const connection = new Connection(network, opts.preFlightComitment);
+            const provider = getProvider();
+            const program = new Program(idl, programID, provider);
+            Promise.all(
+                (await connection.getProgramAccounts(programID)).map(async (campaign)=>(
+                    {
+                        ...(await program.account.campaign.fetch(campaign.pubkey)),
+                        pubkey: campaign.pubkey
+                    }
+                ) )
+                ).then((campaigns) => setCampaigns(campaigns));
         }
 
         const createCampaign = async () => {
