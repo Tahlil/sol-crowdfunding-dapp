@@ -15,6 +15,7 @@ const App = () => {
         const getProvider = () => {
             const connection = new Connection(network, opts.preFlightComitment)
             const provider = new AnchorProvider(connection, window.solana, opts.preFlightComitment)
+            return provider;
         }
         const { SystemProgram } = web3;
         const checkIfWalletIsConnected = async() => {
@@ -69,7 +70,10 @@ const App = () => {
             }
         } 
         const renderNotConnectedContainer = () => ( < button onClick = { connectWallet } > Connect to Wallet </button>)
-            useEffect(() => {
+
+        const renderConnectedContainer = () => ( < button onClick = { createCampaign } > Create a campaign </button>)
+
+        useEffect(() => {
                 const onload = async() => {
                     await checkIfWalletIsConnected();
                 }
@@ -79,6 +83,8 @@ const App = () => {
             return (
                 <div className="App">
                     {!walletAddress && renderNotConnectedContainer()}
+                    {walletAddress && renderConnectedContainer()}
+
                 </div>
             )
         }
