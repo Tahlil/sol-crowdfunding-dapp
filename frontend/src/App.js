@@ -86,7 +86,26 @@ const App = () => {
                 console.error("Error creating campaign: " + error);
             }
         } 
-        const renderNotConnectedContainer = () => ( < button onClick = { connectWallet } > Connect to Wallet </button>)
+        const renderNotConnectedContainer = () => ( 
+        <div>
+        <button onClick = { connectWallet } > Connect to Wallet </button>
+        <button onClick = { getCampaigns } > Get Campaigns </button>
+        <br/>
+       {campaigns.map(campaign => (
+           <div>
+               <p>Campaign ID: {campaign.pubkey.toString()}</p>
+               <p>
+                   Balance: {" "}
+                   {(
+                       campaign.amountDonated/web3.LAMPORTS_PER_SOL
+                   ).toString()}
+               </p>
+               <p>{campaign.name}</p>
+               <p>{campaign.description}</p>
+           </div>
+       ))}
+        </div>
+        )
 
         const renderConnectedContainer = () => ( < button onClick = { createCampaign } > Create a campaign </button>)
 
