@@ -1,2 +1,4 @@
 Devnet deployed address: B3kNNQCvmKywbcsHT6z6tNnTD49pijeCupBPKVvUm8rc
 https://explorer.solana.com/address/B3kNNQCvmKywbcsHT6z6tNnTD49pijeCupBPKVvUm8rc?cluster=devnet
+Create a new campaign with address: AR3RCuHJ9KPBPwSs6Fk6p9SBkhXBZWLYBVX5nYrVFL4T
+https://explorer.solana.com/address/AR3RCuHJ9KPBPwSs6Fk6p9SBkhXBZWLYBVX5nYrVFL4T?cluster=devnet
