@@ -4,8 +4,18 @@ import {Connection, PublicKey, clusterApiUrl} from '@solana/web3.js';
 import {Program, AnchorProvider, web3, utils, BN} from '@project-serum/anchor'
 import { useEffect, useState } from "react";
 
+const programID = new PublicKey(idl.metadata.address);
+const network = clusterApiUrl('devnet');
+const opts = {
+    preFlightComitment: 'processed'
+} 
+
 const App = () => {
         const [walletAddress, setWalletAddress] = useState(null);
+        const getProvider = () => {
+            const connection = new Connection(network, opts.preFlightComitment)
+            const provider = new AnchorProvider(connection, window.solana, opts.preFlightComitment)
+        }
         const checkIfWalletIsConnected = async() => {
             try {
                 const { solana } = window;
